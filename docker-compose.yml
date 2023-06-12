@@ -1,0 +1,28 @@
+services:
+  redis:
+    image: 'redis:latest'
+    command: redis-server --appendonly no --save 900 1 --save 300 10 --save 60 10000
+    volumes:
+      - redis-data:/data
+    ports:
+      - '6379:6379'
+  app:
+    image: '${APP_IMAGE}'
+    restart: always
+    ports:
+      - 3000:3000
+    env_file: .env
+    environment:
+      RAILS_SERVE_STATIC_FILES: 1
+      REDIS_URL: redis://redis:6379/1
+      RAILS_ENV: production
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/up"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: start
+volumes:
+  redis-data:

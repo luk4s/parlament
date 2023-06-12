@@ -21,6 +21,7 @@ jobs:
         with:
           context: .
           load: true
+          push: false
           tags: luk4s/parlament:test
 
       - name: Run tests
@@ -38,10 +39,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: .
-          target: production
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.version }}
