@@ -4,14 +4,18 @@ RSpec.describe ParlamentController, type: :controller do
   describe 'POST #presence' do
     let(:valid_token) { Rails.application.credentials.presence_api_key }
     let(:invalid_token) { 'invalid_token' }
+    let(:parlament_state) { instance_double(ParlamentState) }
 
     context 'with valid token' do
       before do
+        allow(ParlamentState).to receive(:instance).and_return(parlament_state)
         request.headers['Authorization'] = "Token token=\"#{valid_token}\""
-        post :presence, params: { state: "On" }
+
       end
 
       it 'returns http success' do
+        expect(parlament_state).to receive(:presence=)
+        post :presence, params: { state: "On" }
         expect(response).to have_http_status(:success)
       end
     end

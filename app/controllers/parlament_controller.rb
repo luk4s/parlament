@@ -9,8 +9,6 @@ class ParlamentController < ApplicationController
   def presence
     presence = params.require(:state) == "On"
     ParlamentState.instance.presence = presence
-    ActionCable.server.broadcast("parlament_presence_channel", { presence: })
-
     head :ok
   end
 

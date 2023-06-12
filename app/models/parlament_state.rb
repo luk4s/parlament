@@ -24,6 +24,7 @@ class ParlamentState
     # Converts input value to a boolean
     boolean_value = !!value
     redis.set('parlament_presence', boolean_value.to_s)
+    ActionCable.server.broadcast("parlament_presence_channel", { presence: boolean_value })
     boolean_value
   end
 end

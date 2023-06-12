@@ -38,5 +38,11 @@ RSpec.describe ParlamentState do
       expect(redis).to receive(:set).with('parlament_presence', 'false')
       state.presence = false
     end
+
+    it 'broadcasts presence change to Redis' do
+      expect(redis).to receive(:set).with('parlament_presence', 'true')
+      expect_any_instance_of(ActionCable::Server::Base).to receive(:broadcast).with "parlament_presence_channel", { presence: true }
+      state.presence = true
+    end
   end
 end
