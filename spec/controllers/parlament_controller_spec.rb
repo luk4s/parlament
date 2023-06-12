@@ -23,6 +23,11 @@ RSpec.describe ParlamentController, type: :controller do
         expect(response).to have_http_status(:success)
       end
 
+      it 'with GET request' do
+        get :presence, params: { state: "On", key: valid_token }
+        expect(response).to have_http_status(:success)
+      end
+
     end
 
     context 'with invalid token' do
