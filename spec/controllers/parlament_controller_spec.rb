@@ -9,15 +9,20 @@ RSpec.describe ParlamentController, type: :controller do
     context 'with valid token' do
       before do
         allow(ParlamentState).to receive(:instance).and_return(parlament_state)
-        request.headers['Authorization'] = "Token token=\"#{valid_token}\""
-
+        expect(parlament_state).to receive(:presence=)
       end
 
-      it 'returns http success' do
-        expect(parlament_state).to receive(:presence=)
+      it 'with HTTP header' do
+        request.headers['Authorization'] = "Token token=\"#{valid_token}\""
         post :presence, params: { state: "On" }
         expect(response).to have_http_status(:success)
       end
+
+      it 'with params key' do
+        post :presence, params: { state: "On", key: valid_token }
+        expect(response).to have_http_status(:success)
+      end
+
     end
 
     context 'with invalid token' do

@@ -7,6 +7,10 @@ List of used credentials, encrypted.
 presence_api_key: your_api_key_here
 ```
 
+There are two option for authentication:
+1. use HTTP Authorization header
+2. use parameter `key` in query string
+
 ## Presence reporting
 * `state=On`
 * `state=Off`

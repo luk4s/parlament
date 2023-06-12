@@ -17,12 +17,20 @@ class ParlamentController < ApplicationController
   end
 
   def authenticate_token
-    authenticate_with_http_token do |token, _options|
-      ActiveSupport::SecurityUtils.secure_compare(
-        ::Digest::SHA256.hexdigest(token),
-        ::Digest::SHA256.hexdigest(Rails.application.credentials.presence_api_key)
-      )
+    if params[:key].present?
+      valid_token?(params[:key])
+    else
+      authenticate_with_http_token do |token, _options|
+        valid_token?(token)
+      end
     end
+  end
+
+  def valid_token?(token)
+    ActiveSupport::SecurityUtils.secure_compare(
+      ::Digest::SHA256.hexdigest(token),
+      ::Digest::SHA256.hexdigest(Rails.application.credentials.presence_api_key)
+    )
   end
 
   def render_unauthorized
