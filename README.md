@@ -17,3 +17,5 @@ There are two option for authentication:
 ```bash
 curl -X POST -H "Authorization: Token your_api_key" https://<url>/parlament/presence?state=On
 ```
+
+## License
