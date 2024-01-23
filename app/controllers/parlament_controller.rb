@@ -1,10 +1,8 @@
 class ParlamentController < ApplicationController
-
   before_action :authenticate, only: [:presence]
   skip_before_action :verify_authenticity_token
 
-  def index
-  end
+  def index; end
 
   def presence
     presence = params.require(:state) == "On"
@@ -39,5 +37,4 @@ class ParlamentController < ApplicationController
       format.html { render plain: "Unauthorized", status: :unauthorized }
     end
   end
-
 end

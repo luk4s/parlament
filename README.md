@@ -15,5 +15,5 @@ There are two option for authentication:
 * `state=On`
 * `state=Off`
 ```bash
-curl -X POST -H "Authorization: Token your_api_key" https://<url>/parlament/presence?state=On
+curl -X POST -H "Authorization: Token your_api_key" https://<url>/parlament/presence/On
 ```
