@@ -19,13 +19,13 @@ export default class extends Controller {
     }
 
     presenceIn() {
-        this.headingTarget.textContent = "Jsem přítomný"
+        this.headingTarget.textContent = "Hlásím přítomnost"
         this.headingTarget.style.color = "var(--bs-success)"
-        this.subtextTarget.textContent = "Huhů! 🍻"
+        this.subtextTarget.textContent = "Těžká debata! 🍻"
 
     }
     presenceOut() {
-        this.headingTarget.textContent = "Nejsem tady"
+        this.headingTarget.textContent = "Prázdno"
         this.headingTarget.style.color = "var(--bs-danger)"
         this.subtextTarget.textContent = "Právě teď tu nikdo není"
     }
