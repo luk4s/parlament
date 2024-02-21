@@ -2,33 +2,33 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
 
-    static values = {
-        presence: Boolean,
-        line1: String,
-        line2: String
-    }
-    static targets = [ "heading", "subtext" ]
+  static values = {
+    presence: Boolean,
+    line1: String,
+    line2: String
+  }
+  static targets = ["heading", "subtext"]
 
-    connect() {
-        this.presenceValueChanged()
-    }
-    presenceValueChanged() {
-        if (this.presenceValue) {
-            this.presenceIn()
-        } else {
-            this.presenceOut()
-        }
-    }
+  connect() {
+    this.presenceValueChanged()
+  }
 
-    presenceIn() {
-        this.headingTarget.textContent = "Hlásím přítomnost"
-        this.headingTarget.style.color = "var(--bs-success)"
-        this.subtextTarget.textContent = "Těžká debata! 🍻"
+  presenceValueChanged() {
+    this.headingTarget.textContent = this.line1Value
+    this.subtextTarget.textContent = this.line2Value
 
+    if (this.presenceValue) {
+      this.presenceIn()
+    } else {
+      this.presenceOut()
     }
-    presenceOut() {
-        this.headingTarget.textContent = "Prázdno"
-        this.headingTarget.style.color = "var(--bs-danger)"
-        this.subtextTarget.textContent = "Právě teď tu nikdo není"
-    }
+  }
+
+  presenceIn() {
+    this.headingTarget.style.color = "var(--bs-success)"
+  }
+
+  presenceOut() {
+    this.headingTarget.style.color = "var(--bs-danger)"
+  }
 }

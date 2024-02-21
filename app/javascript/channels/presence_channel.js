@@ -20,8 +20,8 @@ consumer.subscriptions.create("PresenceChannel", {
     const controller = document.querySelector('div[data-controller="parlament"]')
     if (data && controller) {
       controller.dataset.parlamentPresenceValue = data["presence"].toString()
-      controller.dataset.parlamentLine1Value = data["line1"]
-      controller.dataset.parlamentLine2Value = data["line2"]
+      controller.dataset.parlamentLine1Value = data["line1_text"]
+      controller.dataset.parlamentLine2Value = data["line2_text"]
     }
   }
 });
