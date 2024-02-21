@@ -71,3 +71,5 @@ gem "sassc-rails", "~> 2.1"
 
 
 
+
+gem "spina", "~> 2.18"
