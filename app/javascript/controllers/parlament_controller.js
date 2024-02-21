@@ -3,7 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
     static values = {
-        presence: Boolean
+        presence: Boolean,
+        line1: String,
+        line2: String
     }
     static targets = [ "heading", "subtext" ]
 
