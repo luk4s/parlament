@@ -68,8 +68,4 @@ end
 gem "bootstrap", "~> 5.2"
 gem "rails-i18n", "~> 7.0"
 gem "sassc-rails", "~> 2.1"
-
-
-
-
 gem "spina", "~> 2.18"
