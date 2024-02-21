@@ -3,12 +3,11 @@ source "https://rubygems.org"
 ruby "3.2.2"
 
 # Use main development branch of Rails
-gem "rails", "~> 7.0.5"
+gem "rails", "~> 7.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem "pg", "~> 1.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -26,7 +25,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 5.0.6"
+gem "redis", "~> 5.1.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -62,10 +61,10 @@ group :development do
   gem "error_highlight", ">= 0.4.0", platforms: [:ruby]
 end
 group :test do
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 6.1"
   gem "simplecov", require: false
 end
 
 gem "bootstrap", "~> 5.2"
-
+gem "rails-i18n", "~> 7.0"
 gem "sassc-rails", "~> 2.1"

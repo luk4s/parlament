@@ -14,5 +14,19 @@
 <div class="container">
   <%= yield %>
 </div>
+<script type="application/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+        const isDarkMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        // Set the `data-bs-theme` attribute based on the dark mode status
+        document.documentElement.setAttribute("data-bs-theme", isDarkMode ? "dark" : "light");
+
+        // Optional: Listen for changes in the color scheme preference and update the attribute accordingly
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", event => {
+            document.documentElement.setAttribute("data-bs-theme", event.matches ? "dark" : "light");
+        });
+    });
+</script>
+
 </body>
 </html>
