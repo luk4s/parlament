@@ -24,6 +24,11 @@ class ParlamentController < ApplicationController
     end
   end
 
+  def announcement
+    page = Spina::Page.find_by! name: "homepage"
+    render json: { title: page.title, body: page.content(:text).presence, updated_at: page.updated_at }
+  end
+
   def valid_token?(token)
     ActiveSupport::SecurityUtils.secure_compare(
       ::Digest::SHA256.hexdigest(token),
