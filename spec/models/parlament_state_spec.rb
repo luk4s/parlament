@@ -72,7 +72,7 @@ RSpec.describe ParlamentState do
   shared_examples "line_text" do |method, line|
     subject(:line_text) { state.send(method) }
 
-    let(:page) { instance_double(Spina::Page, content: ) }
+    let(:page) { instance_double(Spina::Page, content:) }
     let(:content) { "some text" }
 
     context "with state = on" do
