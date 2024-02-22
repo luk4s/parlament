@@ -103,7 +103,6 @@ GEM
     docile (1.4.0)
     drb (2.2.0)
       ruby2_keywords
-    error_highlight (0.6.0)
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.16.3)
@@ -366,7 +365,6 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap (~> 5.2)
-  error_highlight (>= 0.4.0)
   importmap-rails
   jbuilder
   pg (~> 1.5)
