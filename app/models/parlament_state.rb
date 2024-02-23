@@ -30,7 +30,7 @@ class ParlamentState
   # @return [String] From Spina
   def line1_text
     page = Spina::Page.find_by! name: "state_#{presence_state}"
-    page.content(:line1)
+    page.title
   end
 
   def line2_text
