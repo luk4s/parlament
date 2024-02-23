@@ -66,9 +66,9 @@ jobs:
           echo "RAILS_ENV=test" >> .env.test
           echo "RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}" >> .env.test
       - name: Run linter
-        run: docker run --rm --env-file .env.test luk4s/parlament:test bundle exec rubocop
+        run: docker run --rm --env-file .env.test --entrypoint "" luk4s/parlament:test bundle exec rubocop
       - name: Run tests
-        run: docker run --network host --rm --env-file .env.test luk4s/parlament:test bundle exec rspec
+        run: docker run --network host --rm --env-file .env.test --entrypoint "" luk4s/parlament:test bundle exec rspec
   release:
     runs-on: ubuntu-latest
     needs: [ build, test ]
