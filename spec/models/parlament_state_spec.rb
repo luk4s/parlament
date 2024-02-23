@@ -69,41 +69,24 @@ RSpec.describe ParlamentState do
     end
   end
 
-  shared_examples "line_text" do |method, line|
-    subject(:line_text) { state.send(method) }
+  describe "line_texts" do
+    subject(:line1_text) { state.line1_text }
 
-    let(:page) { instance_double(Spina::Page, content:) }
-    let(:content) { "some text" }
+    let(:page) { instance_double(Spina::Page, title:, content:) }
+    let(:title) { "Page title" }
+    let(:content) { "Page content" }
 
-    context "with state = on" do
-      before do
-        allow(Spina::Page).to receive(:find_by!).with(name: "state_on").and_return(page)
-        allow(redis).to receive(:get).with("parlament_presence").and_return("true")
-      end
-
-      it { is_expected.to eq(content) }
-
-      it "call properly line" do
-        line_text
-        expect(page).to have_received(:content).with(line)
-      end
+    before do
+      allow(state).to receive(:presence_state).and_return("on")
+      allow(Spina::Page).to receive(:find_by!).and_return(page)
     end
 
-    context "with state = off" do
-      before do
-        allow(Spina::Page).to receive(:find_by!).with(name: "state_off").and_return(page)
-        allow(redis).to receive(:get).with("parlament_presence").and_return("false")
-      end
+    it "line1 returns the title of the page" do
+      expect(line1_text).to eq(title)
+    end
 
-      it { is_expected.to eq(content) }
-
-      it "call properly line" do
-        line_text
-        expect(page).to have_received(:content).with(line)
-      end
+    it "line2 return content of the page" do
+      expect(state.line2_text).to eq(content)
     end
   end
-
-  it_behaves_like "line_text", :line1_text, :line1
-  it_behaves_like "line_text", :line2_text, :line2
 end

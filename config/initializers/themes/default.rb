@@ -22,7 +22,6 @@ Spina::Theme.register do |theme|
   # - Repeater
   theme.parts = [
     { name: "text", title: "Body", hint: "Your main content", part_type: "Spina::Parts::Text" },
-    { name: "line1", title: "Highlight", hint: "Message of state", part_type: "Spina::Parts::Line" },
     { name: "line2", title: "Additional text", hint: "Additional message", part_type: "Spina::Parts::Line" },
   ]
 
@@ -32,7 +31,7 @@ Spina::Theme.register do |theme|
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
     { name: "homepage", title: "Homepage", parts: %w[text] },
-    { name: "show", title: "Page", parts: %w[line1 line2] },
+    { name: "show", title: "Page", parts: %w[line2] },
   ]
 
   # Custom pages
