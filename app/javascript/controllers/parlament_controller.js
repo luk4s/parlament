@@ -14,7 +14,7 @@ export default class extends Controller {
     this.presenceValueChanged()
     setTimeout(() => {
       this.fetchAndShowDialog();
-    }, 4000);
+    }, 2250);
   }
 
   presenceValueChanged() {
