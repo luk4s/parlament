@@ -25,7 +25,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-gem "redis", "~> 5.1.0"
+gem "redis", "~> 5.2"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -43,9 +43,9 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 group :development, :test do
-  gem "rubocop", "~> 1.60"
+  gem "rubocop", "~> 1.64"
   gem "rubocop-rails", "~> 2.23"
-  gem "rubocop-rspec", "~> 2.26"
+  gem "rubocop-rspec", "~> 3.0.2"
 end
 
 group :development do

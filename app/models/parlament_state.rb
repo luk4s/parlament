@@ -2,6 +2,8 @@ require "redis"
 
 # Store current presence in Parlament
 class ParlamentState
+  include Singleton
+
   attr_reader :redis
 
   def initialize
@@ -9,8 +11,8 @@ class ParlamentState
     @redis = Redis.new url: redis_url
   end
 
-  def self.instance
-    new
+  def broadcast!
+    ActionCable.server.broadcast("parlament_presence_channel", as_json)
   end
 
   def presence
@@ -24,7 +26,7 @@ class ParlamentState
     # Converts input value to a boolean
     boolean_value = !!value
     redis.set("parlament_presence", boolean_value.to_s)
-    ActionCable.server.broadcast("parlament_presence_channel", as_json)
+    broadcast!
   end
 
   # @return [String] From Spina

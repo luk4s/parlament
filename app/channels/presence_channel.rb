@@ -6,4 +6,8 @@ class PresenceChannel < ApplicationCable::Channel
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
+
+  def appear(_data)
+    transmit ParlamentState.instance.as_json
+  end
 end

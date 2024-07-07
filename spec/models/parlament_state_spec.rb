@@ -1,8 +1,9 @@
 require "rails_helper"
 
 RSpec.describe ParlamentState do
-  subject(:state) { described_class.instance }
+  subject(:state) { singleton_class_proxy.instance }
 
+  let(:singleton_class_proxy) { Class.new(described_class) }
   let(:redis) { instance_double(Redis) }
 
   before do
@@ -30,13 +31,10 @@ RSpec.describe ParlamentState do
   end
 
   describe "#presence=" do
-    let(:cable) { spy }
-
     before do
-      allow(ActionCable).to receive(:server).and_return(cable)
       allow(redis).to receive(:get)
       allow(redis).to receive(:set)
-      allow(state).to receive_messages(line1_text: "line1", line2_text: "line2")
+      allow(state).to receive(:broadcast!)
     end
 
     it "sets presence to true in Redis" do
@@ -50,9 +48,21 @@ RSpec.describe ParlamentState do
     end
 
     it "broadcasts presence change to Redis" do
-      allow(redis).to receive(:get).with("parlament_presence").and_return("true")
       state.presence = true
-      expect(redis).to have_received(:set).with("parlament_presence", "true")
+      expect(state).to have_received(:broadcast!)
+    end
+  end
+
+  describe "#broadcast!" do
+    let(:cable) { spy }
+
+    before do
+      allow(ActionCable).to receive(:server).and_return(cable)
+      allow(state).to receive_messages(presence: true, line1_text: "line1", line2_text: "line2")
+    end
+
+    it "broadcasts presence change to Redis" do
+      state.broadcast!
       expect(cable).to have_received(:broadcast).with "parlament_presence_channel", hash_including(presence: true)
     end
   end
