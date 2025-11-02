@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0]
+### Changed
+* ruby version to `3.4.7`
+* update dependencies
+
 ## [1.1.3]
 ### Changed
 - update dependencies
