@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
-ARG RUBY_VERSION=3.2.2
-FROM ruby:$RUBY_VERSION-slim as base
+ARG RUBY_VERSION=3.4.7
+FROM ruby:$RUBY_VERSION-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
@@ -16,7 +16,7 @@ ENV RAILS_ENV="production" \
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y vim curl libpq-dev libvips nodejs
 # Throw-away build stage to reduce size of final image
-FROM base as build
+FROM base AS build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
