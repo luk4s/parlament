@@ -63,7 +63,8 @@ group :test do
   gem "simplecov", require: false
 end
 
-gem "bootstrap", "~> 5.2"
+gem "bootstrap", "~> 5.3"
 gem "rails-i18n", "~> 7.0"
-gem "sassc-rails", "~> 2.1"
 gem "spina", "~> 2.18"
+
+gem "dartsass-sprockets", "~> 3.2"
