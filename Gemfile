@@ -59,7 +59,7 @@ group :development do
   # gem "spring"
 end
 group :test do
-  gem "rspec-rails", "~> 7.1"
+  gem "rspec-rails", "~> 8.0"
   gem "simplecov", require: false
 end
 
