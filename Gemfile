@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "~> 3.4.7"
 
 # Use main development branch of Rails
-gem "rails", "~> 7.1"
+gem "rails", "~> 7.2"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -34,7 +34,7 @@ gem "redis", "~> 5.2"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[windows jruby]
+# gem "tzinfo-data", platforms: %i[windows jruby]
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -45,7 +45,7 @@ gem "bootsnap", require: false
 group :development, :test do
   gem "rubocop", "~> 1.64"
   gem "rubocop-rails", "~> 2.23"
-  gem "rubocop-rspec", "~> 3.0.2"
+  gem "rubocop-rspec", "~> 3.7"
 end
 
 group :development do
@@ -59,11 +59,12 @@ group :development do
   # gem "spring"
 end
 group :test do
-  gem "rspec-rails", "~> 6.1"
+  gem "rspec-rails", "~> 7.1"
   gem "simplecov", require: false
 end
 
-gem "bootstrap", "~> 5.2"
+gem "bootstrap", "~> 5.3"
 gem "rails-i18n", "~> 7.0"
-gem "sassc-rails", "~> 2.1"
 gem "spina", "~> 2.18"
+
+gem "dartsass-sprockets", "~> 3.2"

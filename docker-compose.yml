@@ -16,7 +16,7 @@ services:
     image: '${APP_IMAGE}'
     restart: always
     ports:
-      - 127.0.0.1:3000:3000
+      - "127.0.0.1:3000:3000"
     env_file: .env
     environment:
       RAILS_SERVE_STATIC_FILES: 1

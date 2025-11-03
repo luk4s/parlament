@@ -15,12 +15,15 @@ class ParlamentState
     ActionCable.server.broadcast("parlament_presence_channel", as_json)
   end
 
+  # rubocop:disable Naming/PredicateMethod
   def presence
     # Assuming the Redis key for 'presence' is 'parlament_presence'
     redis.get("parlament_presence") == "true"
   end
 
   alias presence? presence
+
+  # rubocop:enable Naming/PredicateMethod
 
   def presence=(value)
     # Converts input value to a boolean
