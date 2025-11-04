@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/sh
 set -e
 
 install() {
@@ -12,7 +12,7 @@ server() {
 }
 case "$1" in
 "bash")
-  bash -l
+  sh
   ;;
 "rails")
   bundle exec rails "$2"
@@ -34,7 +34,6 @@ case "$1" in
   Unknown action. Possible actions are:
    * bash
    * rails <subcommand>
-   * test
    * install
    * server
    * sidekiq
