@@ -24,7 +24,7 @@ services:
     depends_on:
       - redis
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:3000/up" ]
+      test: [ "CMD", "ruby", "-rnet/http", "-e", "exit(Net::HTTP.get_response(URI('http://localhost:3000/up')).code.to_i == 200 ? 0 : 1)" ]
       interval: 5m
       timeout: 5s
       retries: 3

@@ -4,6 +4,8 @@ require "redis"
 class ParlamentState
   include Singleton
 
+  VALID_PERIOD = 30.minutes.freeze
+
   attr_reader :redis
 
   def initialize
@@ -16,9 +18,13 @@ class ParlamentState
   end
 
   # rubocop:disable Naming/PredicateMethod
+  # @return [Boolean] true if presence is set to true and updated within VALID_PERIOD
   def presence
-    # Assuming the Redis key for 'presence' is 'parlament_presence'
-    redis.get("parlament_presence") == "true"
+    timestamp, value = redis.mget("presence_updated_at", "parlament_presence")
+    return false unless timestamp && value
+
+    presence_at = Time.zone.at(timestamp.to_i)
+    value == "true" && presence_at >= VALID_PERIOD.ago
   end
 
   alias presence? presence
@@ -29,6 +35,7 @@ class ParlamentState
     # Converts input value to a boolean
     boolean_value = !!value
     redis.set("parlament_presence", boolean_value.to_s)
+    redis.set("presence_updated_at", Time.current.to_i.to_s)
     broadcast!
   end
 
