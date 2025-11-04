@@ -49,3 +49,6 @@ or
 ```bash
 curl -X POST https://<url>/parlament/presence/On?key=your_api_key
 ```
+
+## Presence validity
+Presence is valid for 30 minutes. After that time, presence is automatically removed.

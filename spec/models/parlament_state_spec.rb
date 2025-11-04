@@ -48,7 +48,7 @@ RSpec.describe ParlamentState do
         expect(presence).to be false
       end
 
-      it "with presence_updated_at and expire" do
+      it "with presence_updated_at and expired" do
         travel_to 4.hours.ago do
           state.presence = true
         end
@@ -56,7 +56,7 @@ RSpec.describe ParlamentState do
         expect(presence).to be false
       end
 
-      it "with presence_updated_at and not expire" do
+      it "with presence_updated_at and not expired" do
         travel_to 2.minutes.ago do
           state.presence = true
         end
