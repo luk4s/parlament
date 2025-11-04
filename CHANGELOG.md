@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0]
+### Changed
+* healthcheck using ruby net/http instead of curl
+
 ## [2.0.0]
 ### Changed
 * upgrade Rails to `8.0`

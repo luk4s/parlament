@@ -1,55 +1,72 @@
 require "rails_helper"
 
 RSpec.describe ParlamentState do
+  include ActiveSupport::Testing::TimeHelpers
+
   subject(:state) { singleton_class_proxy.instance }
 
   let(:singleton_class_proxy) { Class.new(described_class) }
-  let(:redis) { instance_double(Redis) }
 
   before do
-    allow(Redis).to receive(:new).and_return(redis)
-  end
-
-  describe "#presence" do
-    subject(:presence) { state.presence }
-
-    context "when presence is set to true in Redis" do
-      before do
-        allow(redis).to receive(:get).with("parlament_presence").and_return("true")
-      end
-
-      it { is_expected.to be true }
-    end
-
-    context "when presence is set to false in Redis" do
-      before do
-        allow(redis).to receive(:get).with("parlament_presence").and_return(nil)
-      end
-
-      it { is_expected.to be false }
-    end
+    state.redis.flushdb
   end
 
   describe "#presence=" do
     before do
-      allow(redis).to receive(:get)
-      allow(redis).to receive(:set)
       allow(state).to receive(:broadcast!)
     end
 
     it "sets presence to true in Redis" do
-      state.presence = true
-      expect(redis).to have_received(:set).with("parlament_presence", "true")
+      freeze_time do
+        state.presence = true
+
+        expect(state.redis.get("parlament_presence")).to eq("true")
+        expect(state.redis.get("presence_updated_at")).to eq(Time.current.to_i.to_s)
+      end
     end
 
     it "sets presence to false in Redis" do
       state.presence = false
-      expect(redis).to have_received(:set).with("parlament_presence", "false")
+      expect(state.redis.exists?("parlament_presence", "presence_updated_at")).to be true
     end
 
     it "broadcasts presence change to Redis" do
       state.presence = true
       expect(state).to have_received(:broadcast!)
+    end
+  end
+
+  describe "#presence" do
+    subject(:presence) { state.presence }
+
+    before do
+      allow(state).to receive(:broadcast!)
+    end
+
+    context "when presence is set to true in Redis" do
+      it "with missing presence_updated_at" do
+        expect(presence).to be false
+      end
+
+      it "with presence_updated_at and expired" do
+        travel_to 4.hours.ago do
+          state.presence = true
+        end
+
+        expect(presence).to be false
+      end
+
+      it "with presence_updated_at and not expired" do
+        travel_to 2.minutes.ago do
+          state.presence = true
+        end
+
+        expect(presence).to be true
+      end
+    end
+
+    context "when presence is set to false in Redis" do
+      it { is_expected.to be false }
     end
   end
 
