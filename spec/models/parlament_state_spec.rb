@@ -17,10 +17,12 @@ RSpec.describe ParlamentState do
     end
 
     it "sets presence to true in Redis" do
-      state.presence = true
+      freeze_time do
+        state.presence = true
 
-      expect(state.redis.get("parlament_presence")).to eq("true")
-      expect(state.redis.get("presence_updated_at")).to eq(Time.current.to_i.to_s)
+        expect(state.redis.get("parlament_presence")).to eq("true")
+        expect(state.redis.get("presence_updated_at")).to eq(Time.current.to_i.to_s)
+      end
     end
 
     it "sets presence to false in Redis" do
