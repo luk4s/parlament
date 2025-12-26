@@ -24,9 +24,14 @@ export default class extends Controller {
 
     if (this.presenceValue) {
       const presenceDate = new Date(this.presenceFromAtValue * 1000)
-      const hours = presenceDate.getHours().toString().padStart(2, '0')
-      const minutes = presenceDate.getMinutes().toString().padStart(2, '0')
-      const icon = (minutes >= 45) ? "⌛" : "⏳"
+      const validUntilDate = new Date(this.presenceValidUntilValue * 1000)
+
+      const hours = presenceDate.getHours().toString().padStart(2, "0")
+      const minutes = presenceDate.getMinutes().toString().padStart(2, "0")
+
+      const now = new Date()
+      const icon = now < presenceDate ? "🕰️" : (now <= validUntilDate ? "⏳" : "⌛")
+
       this.subtextTarget.textContent = `${icon} jsme zde od ${hours}:${minutes}`
       this.#presenceIn()
     } else {
