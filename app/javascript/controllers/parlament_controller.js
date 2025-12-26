@@ -30,7 +30,10 @@ export default class extends Controller {
       const minutes = presenceDate.getMinutes().toString().padStart(2, "0")
 
       const now = new Date()
-      const icon = now <= validUntilDate ? "⏳" : "⌛"
+      const timeUntilExpiry = validUntilDate - now
+      const fifteenMinutesInMs = 15 * 60 * 1000
+
+      const icon = timeUntilExpiry <= fifteenMinutesInMs ? "⌛" : "⏳"
 
       this.subtextTarget.textContent = `${icon} jsme zde od ${hours}:${minutes}`
       this.#presenceIn()
