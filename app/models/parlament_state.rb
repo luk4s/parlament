@@ -4,7 +4,7 @@ require "redis"
 class ParlamentState
   include Singleton
 
-  VALID_PERIOD = 30.minutes.freeze
+  VALID_PERIOD = 60.minutes.freeze
 
   attr_reader :redis
 
@@ -50,11 +50,23 @@ class ParlamentState
     page.content(:line2)
   end
 
+  # @return [Integer] unix timestamp
+  def presence_from_at
+    redis.get("presence_updated_at").to_i
+  end
+
+  # @return [Integer] unix timestamp
+  def presence_valid_until
+    (redis.get("presence_updated_at").to_i + VALID_PERIOD.to_i)
+  end
+
   def as_json(*_)
     {
       presence:,
       line1_text:,
       line2_text:,
+      presence_from_at:,
+      presence_valid_until:,
     }
   end
 

@@ -57,8 +57,10 @@ consumer.subscriptions.create("PresenceChannel", {
   /*
     @param {Object} data - The data received from the server
     @param {Boolean} data.presence - The presence value
-    @param {String} data.line1 - The first line of the message
-    @param {String} data.line2 - The second line of the message
+    @param {String} data.line1_text - The first line of the message
+    @param {String} data.line2_text - The second line of the message
+    @param {Number} data.presence_from_at - Unix timestamp when presence was updated
+    @param {Number} data.presence_valid_until - Unix timestamp when presence expires
    */
   received(data) {
     // Called when there's incoming data on the websocket for this channel
@@ -67,6 +69,8 @@ consumer.subscriptions.create("PresenceChannel", {
       controller.dataset.parlamentPresenceValue = data["presence"].toString()
       controller.dataset.parlamentLine1Value = data["line1_text"]
       controller.dataset.parlamentLine2Value = data["line2_text"]
+      controller.dataset.parlamentPresenceFromAtValue = data["presence_from_at"].toString()
+      controller.dataset.parlamentPresenceValidUntilValue = data["presence_valid_until"].toString()
     }
   }
 });

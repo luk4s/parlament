@@ -6,7 +6,9 @@ export default class extends Controller {
   static values = {
     presence: Boolean,
     line1: String,
-    line2: String
+    line2: String,
+    presenceFromAt: Number,
+    presenceValidUntil: Number
   }
   static targets = ["heading", "subtext"]
 
@@ -19,11 +21,16 @@ export default class extends Controller {
 
   presenceValueChanged() {
     this.headingTarget.textContent = this.line1Value
-    this.subtextTarget.textContent = this.line2Value
 
     if (this.presenceValue) {
+      const presenceDate = new Date(this.presenceFromAtValue * 1000)
+      const hours = presenceDate.getHours().toString().padStart(2, '0')
+      const minutes = presenceDate.getMinutes().toString().padStart(2, '0')
+      const icon = (minutes >= 45) ? "⌛" : "⏳"
+      this.subtextTarget.textContent = `${icon} jsme zde od ${hours}:${minutes}`
       this.#presenceIn()
     } else {
+      this.subtextTarget.textContent = this.line2Value
       this.#presenceOut()
     }
   }
