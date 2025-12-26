@@ -57,7 +57,7 @@ class ParlamentState
 
   # @return [Integer] unix timestamp
   def presence_valid_until
-    (redis.get("presence_updated_at").to_i + VALID_PERIOD.to_i)
+    redis.get("presence_updated_at").to_i + VALID_PERIOD.to_i
   end
 
   def as_json(*_)
