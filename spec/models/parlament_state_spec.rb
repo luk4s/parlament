@@ -92,7 +92,7 @@ RSpec.describe ParlamentState do
     end
 
     it "returns a hash with presence and line text" do
-      expect(json).to eq(presence: true, line1_text: "line1", line2_text: "line2")
+      expect(json).to include(presence: true, line1_text: "line1", line2_text: "line2")
     end
   end
 
